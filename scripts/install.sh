@@ -11,20 +11,26 @@ curl -fsSL https://starship.rs/install.sh | sh
 # Gå til roden af dotfiles-repoet (en mappe op fra hvor scriptet ligger)
 cd "$(dirname "$0")/.."
 
-# Find alle mapper i den nuværende mappe (undtagen .git og scripts)
-# og kør 'stow' på hver af dem.
-#
-# -maxdepth 1: Kig kun i den nuværende mappe, ikke i undermapper.
-# -type d: Find kun mapper.
-# -not -name ".git": Ignorer .git-mappen.
-# -not -name "scripts": Ignorer vores script-mappe.
-# -exec ...: Kør en kommando for hvert fund.
-#
-# basename {} fjerner stien og giver kun mappenavnet.
+# Funktion til at tage backup af en eksisterende fil
+backup_file() {
+    local file="$1"
+    if [ -e "$file" ] && [ ! -L "$file" ]; then
+        local backup_file="${file}.$(date +%Y%m%d%H%M%S).backup"
+        echo "Backing up $file to $backup_file"
+        mv "$file" "$backup_file"
+    fi
+}
+
+echo "Backing up existing files"
 
 echo "Stowing all packages..."
 for pkg in $(find . -maxdepth 1 -type d -not -name ".git" -not -name ".*" -not -name "scripts" -exec basename {} \;); do
     echo "Stowing $pkg..."
+    # Find alle filer i pakken, og tag backup hvis nødvendigt
+    for dotfile in "$(find "$pkg" -type f)"; do
+        target="$HOME/$(basename "$dotfile")"
+        backup_file "$target"
+    done
     stow -R "$pkg"
 done
 
