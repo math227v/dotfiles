@@ -3,7 +3,7 @@ version = 3
 
 [transient_prompt]
   template = ' '
-  foreground = '#FEF5ED'
+  foreground = '#d2ff5e'
   background = 'transparent'
 
 [upgrade]
@@ -15,13 +15,14 @@ version = 3
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
+  newline = true
 
   [[blocks.segments]]
     leading_diamond = ''
-    trailing_diamond = '<transparent,#FEF5ED></>'
+    trailing_diamond = '<transparent,#d2ff5e></>'
     template = ' {{ if .WSL }}WSL at {{ end }}{{.Icon}}'
-    foreground = '#011627'
-    background = '#FEF5ED'
+    foreground = '#000000'
+    background = '#d2ff5e'
     type = 'os'
     style = 'diamond'
 
@@ -32,10 +33,10 @@ version = 3
 
   [[blocks.segments]]
     leading_diamond = ''
-    trailing_diamond = '<transparent,#FEF5ED></>'
-    template = ' ♥ {{ .CurrentDate | date .Format }} '
-    foreground = '#011627'
-    background = '#FEF5ED'
+    trailing_diamond = '<transparent,#d2ff5e></>'
+    template = ' {{ .CurrentDate | date .Format }} '
+    foreground = '#000000'
+    background = '#d2ff5e'
     type = 'time'
     style = 'diamond'
 
@@ -45,16 +46,16 @@ version = 3
   [[blocks.segments]]
     leading_diamond = ''
     template = ' CPU: {{ round .PhysicalPercentUsed .Precision }}% | '
-    foreground = '#ffffff'
-    background = '#516BEB'
+    foreground = '#000000'
+    background = '#d2ff5e'
     type = 'sysinfo'
     style = 'diamond'
 
   [[blocks.segments]]
-    trailing_diamond = '<transparent,#516BEB></>'
+    trailing_diamond = '<transparent,#d2ff5e></>'
     template = 'RAM: {{ (div ((sub .PhysicalTotalMemory .PhysicalAvailableMemory)|float64) 1073741824.0) }}/{{ (div .PhysicalTotalMemory 1073741824.0) }}GB  '
-    foreground = '#ffffff'
-    background = '#516BEB'
+    foreground = '#000000'
+    background = '#d2ff5e'
     type = 'sysinfo'
     style = 'diamond'
 
@@ -62,8 +63,8 @@ version = 3
     leading_diamond = ''
     trailing_diamond = ''
     template = ' {{ .FormattedMs }} '
-    foreground = '#d6deeb'
-    background = '#575656'
+    foreground = '#000000'
+    background = '#d2ff5e'
     type = 'executiontime'
     style = 'diamond'
 
@@ -77,10 +78,10 @@ version = 3
 
   [[blocks.segments]]
     leading_diamond = ''
-    trailing_diamond = '<transparent,#ffffff></>'
+    trailing_diamond = '<transparent,#d2ff5e></>'
     template = ' {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }}'
     foreground = '#000000'
-    background = '#ffffff'
+    background = '#d2ff5e'
     type = 'node'
     style = 'diamond'
 
@@ -93,8 +94,8 @@ version = 3
     leading_diamond = ''
     trailing_diamond = ''
     template = ' {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
-    foreground = '#011627'
-    background = '#17D7A0'
+    foreground = '#000000'
+    background = '#d2ff5e'
     type = 'git'
     style = 'diamond'
 
@@ -111,21 +112,25 @@ version = 3
 
   [[blocks.segments]]
     template = '  {{ .Path }} '
-    foreground = '#ffafd2'
+    foreground = '#d2ff5e'
     type = 'path'
     style = 'diamond'
 
     [blocks.segments.properties]
-      folder_icon = ''
-      home_icon = 'home'
+      folder_icon = ' '
+      home_icon = '~'
       style = 'agnoster_full'
 
   [[blocks.segments]]
-    template = '  '
-    foreground = '#00ff15'
+    template = ' '
     type = 'status'
     style = 'plain'
-    foreground_templates = ['{{ if gt .Code 0 }}#ff0000{{ end }}']
+    foreground_templates = ['{{if gt .Code 0}}#e48484{{end}}', '{{if eq .Code 0}}#d2ff5e{{end}}']
 
     [blocks.segments.properties]
       always_enabled = true
+
+[secondary_prompt]
+  template = '❯❯ '
+  foreground = '#d2ff5e'
+  background = 'transparent'
