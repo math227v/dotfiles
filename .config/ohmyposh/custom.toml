@@ -20,7 +20,7 @@ version = 3
   [[blocks.segments]]
     leading_diamond = ''
     trailing_diamond = '<transparent,#d2ff5e></>'
-    template = ' {{ if .WSL }}WSL at {{ end }}{{.Icon}}'
+    template = ' {{ if .WSL }}WSL at {{ end }}{{.Icon}} '
     foreground = '#000000'
     background = '#d2ff5e'
     type = 'os'
@@ -29,6 +29,7 @@ version = 3
     [blocks.segments.properties]
       macos = ' '
       ubuntu = ' '
+      debian = ' '
       windows = ' '
 
   [[blocks.segments]]
@@ -76,7 +77,7 @@ version = 3
   [[blocks.segments]]
     leading_diamond = ''
     trailing_diamond = '<transparent,#d2ff5e></>'
-    template = ' {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }}'
+    template = ' {{ if .PackageManagerIcon }} {{ .PackageManagerIcon }} {{ end }}{{ .Full }}'
     foreground = '#000000'
     background = '#d2ff5e'
     type = 'node'
@@ -90,14 +91,14 @@ version = 3
   [[blocks.segments]]
     leading_diamond = ''
     trailing_diamond = '<transparent,#d2ff5e></>'
-    template = ' {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
+    template = ' {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
     foreground = '#000000'
     background = '#d2ff5e'
     type = 'git'
     style = 'diamond'
 
     [blocks.segments.properties]
-      branch_icon = ' '
+      branch_icon = '  '
       fetch_status = true
       fetch_upstream_icon = true
       fetch_worktree_count = true
