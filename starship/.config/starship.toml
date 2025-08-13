@@ -171,6 +171,7 @@ disabled = false
 time_format = "%R"
 style = "bg:color_bg1"
 format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
+utc_time_offset = '2'
 
 [line_break]
 disabled = false
