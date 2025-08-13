@@ -12,6 +12,7 @@ sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 curl -fsSL https://starship.rs/install.sh | sh
 
 # Indstil zsh som standard shell
+echo "Indstiller zsh som standard shell"
 chsh -s $(which zsh)
 
 # Gå til roden af dotfiles-repoet (en mappe op fra hvor scriptet ligger)
