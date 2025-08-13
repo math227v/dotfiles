@@ -3,7 +3,10 @@
 echo "Installerer nødvendige pakker..."
 
 sudo apt update
-sudo apt install -y stow git starship curl
+sudo apt install -y stow git curl neofetch
+
+# Installer Starship
+curl -fsSL https://starship.rs/install.sh | sh
 
 # Gå til roden af dotfiles-repoet (en mappe op fra hvor scriptet ligger)
 cd "$(dirname "$0")/.."
