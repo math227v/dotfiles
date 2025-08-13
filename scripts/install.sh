@@ -3,7 +3,10 @@
 echo "Installerer nødvendige pakker..."
 
 sudo apt update
-sudo apt install -y git curl stow neofetch zsh fzf
+sudo apt install -y git curl stow neofetch zsh unzip
+
+# Install Oh My Posh
+curl -s https://ohmyposh.dev/install.sh | bash -s
 
 # Indstil zsh som standard shell
 echo "Indstiller zsh som standard shell"
