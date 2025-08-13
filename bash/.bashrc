@@ -116,6 +116,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+echo ''
+echo ''
 neofetch --ascii /home/math227v/.ascii/spb.small --ascii_colors 1 7
 
 eval "$(starship init bash)"
