@@ -5,9 +5,6 @@ echo "Installerer nødvendige pakker..."
 sudo apt update
 sudo apt install -y git curl stow neofetch zsh fzf
 
-# Installer Starship
-# curl -fsSL https://starship.rs/install.sh | sh
-
 # Indstil zsh som standard shell
 echo "Indstiller zsh som standard shell"
 chsh -s $(which zsh)
