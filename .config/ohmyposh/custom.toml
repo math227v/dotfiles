@@ -34,14 +34,11 @@ version = 3
   [[blocks.segments]]
     leading_diamond = ''
     trailing_diamond = '<transparent,#d2ff5e></>'
-    template = ' {{ .CurrentDate | date .Format }} '
+    template = ' {{ .HostName }} '
     foreground = '#000000'
     background = '#d2ff5e'
-    type = 'time'
+    type = 'session'
     style = 'diamond'
-
-    [blocks.segments.properties]
-      time_format = '15:04:05'
 
   [[blocks.segments]]
     leading_diamond = ''
@@ -92,7 +89,7 @@ version = 3
 
   [[blocks.segments]]
     leading_diamond = ''
-    trailing_diamond = ''
+    trailing_diamond = '<transparent,#d2ff5e></>'
     template = ' {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
     foreground = '#000000'
     background = '#d2ff5e'
@@ -104,6 +101,18 @@ version = 3
       fetch_status = true
       fetch_upstream_icon = true
       fetch_worktree_count = true
+  
+  [[blocks.segments]]
+    leading_diamond = ''
+    trailing_diamond = ''
+    template = ' {{ .CurrentDate | date .Format }} '
+    foreground = '#000000'
+    background = '#d2ff5e'
+    type = 'time'
+    style = 'diamond'
+
+      [blocks.segments.properties]
+        time_format = '15:04:05'
 
 [[blocks]]
   type = 'prompt'
