@@ -103,5 +103,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-#Star Ship
+# Neofetch
+echo ''
+echo ''
+neofetch --ascii /home/math227v/.ascii/spb.small --ascii_colors 1 7
+
+# Star Ship
 eval "$(starship init zsh)"
