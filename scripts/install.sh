@@ -3,10 +3,16 @@
 echo "Installerer nødvendige pakker..."
 
 sudo apt update
-sudo apt install -y stow git curl neofetch
+sudo apt install -y stow git curl neofetch zsh
+
+# Installer OhMyZsh
+sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 
 # Installer Starship
 curl -fsSL https://starship.rs/install.sh | sh
+
+# Indstil zsh som standard shell
+chsh -s $(which zsh)
 
 # Gå til roden af dotfiles-repoet (en mappe op fra hvor scriptet ligger)
 cd "$(dirname "$0")/.."
