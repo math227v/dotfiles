@@ -6,7 +6,7 @@ sudo apt update
 sudo apt install -y stow git curl neofetch zsh
 
 # Installer OhMyZsh
-sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Installer Starship
 curl -fsSL https://starship.rs/install.sh | sh
