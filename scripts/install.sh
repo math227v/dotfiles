@@ -8,6 +8,10 @@ sudo apt install -y git curl stow neofetch zsh unzip
 # Install Oh My Posh
 curl -s https://ohmyposh.dev/install.sh | bash -s
 
+# Install FZF
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
 # Indstil zsh som standard shell
 echo "Indstiller zsh som standard shell"
 chsh -s $(which zsh)

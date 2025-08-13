@@ -1,5 +1,5 @@
 # Append path
-export PATH=$PATH:/home/math227v/.local/bin
+export PATH=$PATH:$HOME/.local/bin
 
 # Define zinit home path
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
