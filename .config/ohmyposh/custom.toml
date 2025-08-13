@@ -34,7 +34,7 @@ version = 3
   [[blocks.segments]]
     leading_diamond = ''
     trailing_diamond = '<transparent,#d2ff5e></>'
-    template = ' {{ .HostName }} '
+    template = ' {{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }} '
     foreground = '#000000'
     background = '#d2ff5e'
     type = 'session'
