@@ -3,7 +3,7 @@
 echo "Installerer nødvendige pakker..."
 
 sudo apt update
-sudo apt install -y stow git curl neofetch zsh
+sudo apt install -y stow git curl neofetch zsh fzf
 
 # Installer OhMyZsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

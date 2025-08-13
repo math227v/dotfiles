@@ -121,3 +121,5 @@ echo ''
 neofetch --ascii /home/math227v/.ascii/spb.small --ascii_colors 1 7
 
 eval "$(starship init bash)"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
