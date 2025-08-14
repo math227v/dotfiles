@@ -1,0 +1,142 @@
+version = 3
+
+[upgrade]
+  source = 'cdn'
+  interval = '168h'
+  auto = false
+  notice = false
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+
+  [[blocks.segments]]
+    template = ' {{ .FormattedMs }} '
+    foreground = '#222222'
+    background = '#007ACC'
+    type = 'executiontime'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      style = 'austin'
+      threshold = 321.0
+
+  [[blocks.segments]]
+    template = '{{ if gt .Code 0 }} {{ .Code }} {{ end }}'
+    foreground = '#ff8888'
+    background = '#880000'
+    type = 'status'
+    style = 'plain'
+
+  [[blocks.segments]]
+    template = ''
+    foreground = '#222222'
+    background = '#ffcc88'
+    type = 'root'
+    style = 'plain'
+
+  [[blocks.segments]]
+    template = ' {{ if .WSL }} {{ end }}{{.Icon}}'
+    foreground = '#666666'
+    background = '#222222'
+    type = 'os'
+    style = 'plain'
+
+  [[blocks.segments]]
+    template = ' {{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }} '
+    foreground = '#666666'
+    background = '#222222'
+    type = 'session'
+    style = 'plain'
+
+  [[blocks.segments]]
+    template = ' {{ .Path }} '
+    foreground = '#cccccc'
+    background = '#444444'
+    type = 'path'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      folder_icon = '…'
+      style = 'mixed'
+
+  [[blocks.segments]]
+    template = ' {{ .HEAD }} '
+    foreground = '#f1f0e9'
+    background = '#cf432B'
+    type = 'git'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      branch_icon = ' '
+      cherry_pick_icon = ' '
+      commit_icon = ' '
+      fetch_status = false
+      fetch_upstream_icon = false
+      merge_icon = ' '
+      no_commits_icon = ' '
+      rebase_icon = ' '
+      revert_icon = ' '
+      tag_icon = ' '
+
+  [[blocks.segments]]
+    template = '  '
+    foreground = '#ffffff'
+    background = '#7014eb'
+    type = 'dotnet'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      fetch_version = false
+
+  [[blocks.segments]]
+    template = '  '
+    foreground = '#ffffff'
+    background = '#7FD5EA'
+    type = 'go'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      fetch_version = false
+
+  [[blocks.segments]]
+    template = '  '
+    foreground = '#100e23'
+    background = '#906cff'
+    type = 'python'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      fetch_version = false
+
+  [[blocks.segments]]
+    template = '  '
+    foreground = '#193549'
+    background = '#99908a'
+    type = 'rust'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      fetch_version = false
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = '{{ .Name }} '
+    foreground = '#007ACC'
+    type = 'shell'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      [blocks.segments.properties.mapped_shell_names]
+        bash = '$'
+        cmd = '>'
+        fish = '~>'
+        lua = '>'
+        nu = ':)'
+        pwsh = '❯'
+        shell = '❯'
+        zsh = '%'

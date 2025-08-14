@@ -13,7 +13,7 @@ fi
 # Source and load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/custom.toml)"
+eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/tiwahu.toml)"
 
 # Install plugins
 zinit light zsh-users/zsh-syntax-highlighting
