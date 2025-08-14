@@ -2,8 +2,8 @@ console_title_template = '{{ .Folder }}'
 version = 3
 
 [transient_prompt]
-  template = ' '
-  foreground = '#d2ff5e'
+  template = '❯ '
+  foreground = '#2e3d7c'
   background = 'transparent'
 
 [upgrade]
@@ -18,118 +18,107 @@ version = 3
   newline = true
 
   [[blocks.segments]]
-    type = 'text'
-    template = '<b></b>'
-    leading_diamond = ''
-    foreground = '#111111'
-    background = '#d2ff5e'
-    style = 'diamond'
-
-  [[blocks.segments]]
-    # trailing_diamond = '<transparent,#d2ff5e></>'
-    template = ' {{ if .SSHSession }}SSH at{{ end }}'
-    foreground = '#111111'
-    background = '#d2ff5e'
+    template = ' {{ if .SSHSession }}SSH{{ end }} '
+    foreground = '#dddddd'
+    background = '#d0233e'
     type = 'session'
     style = 'diamond'
+    leading_diamond = '<transparent,#d0233e></>'
+    trailing_diamond = ''
 
   [[blocks.segments]]
-    # leading_diamond = ''
-    trailing_diamond = '<transparent,#d2ff5e></>'
-    template = ' {{ if .WSL }}WSL at {{ end }}{{.Icon}} '
-    foreground = '#111111'
-    background = '#d2ff5e'
+    template = ' {{ if .WSL }}WSL{{ end }} '
+    foreground = '#dddddd'
+    background = '#d0233e'
     type = 'os'
     style = 'diamond'
-
-    [blocks.segments.properties]
-      macos = ' '
-      ubuntu = ' '
-      debian = ' '
-      windows = ' '
+    leading_diamond = '<transparent,#d0233e></>'
+    trailing_diamond = ''
 
   [[blocks.segments]]
-    leading_diamond = ''
-    trailing_diamond = '<transparent,#d2ff5e></>'
+    template = ' {{.Icon}}  '
+    foreground = '#dddddd'
+    background = '#333333'
+    type = 'os'
+    style = 'diamond'
+    leading_diamond = '<transparent,#333333></>'
+    trailing_diamond = ''
+
+  [[blocks.segments]]
     template = ' {{ .UserName }}@{{ .HostName }} '
-    foreground = '#111111'
-    background = '#d2ff5e'
+    foreground = '#dddddd'
+    background = '#333333'
     type = 'session'
     style = 'diamond'
-
-  [[blocks.segments]]
-    leading_diamond = ''
-    template = ' CPU: {{ round .PhysicalPercentUsed .Precision }}% | '
-    foreground = '#111111'
-    background = '#d2ff5e'
-    type = 'sysinfo'
-    style = 'diamond'
-
-  [[blocks.segments]]
-    trailing_diamond = '<transparent,#d2ff5e></>'
-    template = 'RAM: {{ (div ((sub .PhysicalTotalMemory .PhysicalAvailableMemory)|float64) 1073741824.0) }}/{{ (div .PhysicalTotalMemory 1073741824.0) }}GB  '
-    foreground = '#111111'
-    background = '#d2ff5e'
-    type = 'sysinfo'
-    style = 'diamond'
-
-  [[blocks.segments]]
-    leading_diamond = ''
+    leading_diamond = '<transparent,#333333></>'
     trailing_diamond = ''
-    template = ' {{ .FormattedMs }} '
-    foreground = '#111111'
-    background = '#d2ff5e'
-    type = 'executiontime'
-    style = 'diamond'
-
-    [blocks.segments.properties]
-      style = 'roundrock'
-      threshold = 0.0
-
-[[blocks]]
-  type = 'prompt'
-  alignment = 'right'
 
   [[blocks.segments]]
-    leading_diamond = ''
-    trailing_diamond = '<transparent,#d2ff5e></>'
-    template = ' {{ if .PackageManagerIcon }} {{ .PackageManagerIcon }} {{ end }}{{ .Full }}'
-    foreground = '#111111'
-    background = '#d2ff5e'
-    type = 'node'
-    style = 'diamond'
-
-    [blocks.segments.properties]
-      fetch_package_manager = true
-      npm_icon = ' <#cc3a3a></> '
-      yarn_icon = ' <#348cba></>'
-
-  [[blocks.segments]]
-    leading_diamond = ''
-    trailing_diamond = '<transparent,#d2ff5e></>'
-    template = ' {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
-    foreground = '#111111'
-    background = '#d2ff5e'
+    powerline_symbol = ''
+    template = ' {{ .UpstreamIcon }}  {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
+    foreground = '#282528'
+    background = '#d0233e'
     type = 'git'
-    style = 'diamond'
+    style = 'accordion'
 
     [blocks.segments.properties]
       branch_icon = '  '
       fetch_status = true
       fetch_upstream_icon = true
       fetch_worktree_count = true
-  
-  [[blocks.segments]]
-    leading_diamond = ''
-    trailing_diamond = ''
-    template = ' {{ .CurrentDate | date .Format }} '
+
+ [[blocks.segments]]
+    powerline_symbol = ''
+    template = ''
     foreground = '#111111'
-    background = '#d2ff5e'
+    background = 'transparent'
+    type = 'text'
+    style = 'accordion'
+
+ [[blocks.segments]]
+    powerline_symbol = ''
+    template = '  {{ if .PackageManagerIcon }} {{ .PackageManagerIcon }} {{ end }}{{ .Full }} '
+    foreground = '#111111'
+    background = '#a7cc4b'
+    type = 'node'
+    style = 'accordion'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]]
+    template = '{{ if gt .Code 0 }} Exit code {{ .Code }} {{ end }}'
+    foreground = '#ff8888'
+    background = '#880000'
+    type = 'status'
+    style = 'diamond'
+    trailing_diamond = ' '
+    leading_diamond = ''
+
+  [[blocks.segments]]
+    template = ' {{ .FormattedMs }} '
+    foreground = '#111111'
+    background = '#005b99'
+    type = 'executiontime'
+    style = 'diamond'
+    leading_diamond = ''
+    trailing_diamond = '<transparent,#005b99></>'
+
+    [blocks.segments.properties]
+      style = 'roundrock'
+      threshold = 100.0
+
+  [[blocks.segments]]
+    template = '  {{ .CurrentDate | date .Format }} '
+    foreground = '#dddddd'
+    background = '#333333'
     type = 'time'
     style = 'diamond'
+    leading_diamond = ''
 
-      [blocks.segments.properties]
-        time_format = '15:04:05'
+    [blocks.segments.properties]
+      time_format = '15:04:05'
 
 [[blocks]]
   type = 'prompt'
@@ -137,26 +126,37 @@ version = 3
   newline = true
 
   [[blocks.segments]]
-    template = '  {{ .Path }} '
-    foreground = '#d2ff5e'
+    template = ' {{ .Path }} '
+    foreground = '#dddddd'
+    background = '#transparent'
     type = 'path'
-    style = 'diamond'
+    style = 'plain'
 
     [blocks.segments.properties]
-      folder_icon = ' '
+      folder_icon = '…'
       home_icon = '~'
       style = 'agnoster_full'
 
   [[blocks.segments]]
-    template = ' '
+    template = '❯'
     type = 'status'
-    style = 'plain'
-    foreground_templates = ['{{if gt .Code 0}}#e48484{{end}}', '{{if eq .Code 0}}#d2ff5e{{end}}']
+    style = 'powerline'
+    powerline_symbol = ''
+    foreground = '#ffffff'
+    background_templates = ['{{if gt .Code 0}}#880000{{end}}', '{{if eq .Code 0}}#2e3d7c{{end}}']
 
     [blocks.segments.properties]
       always_enabled = true
+
+  [[blocks.segments]]
+    template = '<b> </b>'
+    foreground = '#dddddd'
+    background = '#transparent'
+    type = 'text'
+    style = 'plain'
 
 [secondary_prompt]
   template = '❯❯ '
   foreground = '#d2ff5e'
   background = 'transparent'
+  style = 'powerline'
