@@ -6,27 +6,15 @@ version = 3
   auto = false
   notice = false
 
+[transient_prompt]
+  template = ' '
+  foreground = '#007ACC'
+  background = 'transparent'
+
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
-
-  [[blocks.segments]]
-    template = ' {{ .FormattedMs }} '
-    foreground = '#222222'
-    background = '#007ACC'
-    type = 'executiontime'
-    style = 'plain'
-
-    [blocks.segments.properties]
-      style = 'austin'
-      threshold = 321.0
-
-  [[blocks.segments]]
-    template = '{{ if gt .Code 0 }} {{ .Code }} {{ end }}'
-    foreground = '#ff8888'
-    background = '#880000'
-    type = 'status'
-    style = 'plain'
+  newline = true
 
   [[blocks.segments]]
     template = ''
@@ -36,16 +24,16 @@ version = 3
     style = 'plain'
 
   [[blocks.segments]]
-    template = ' {{ if .WSL }} {{ end }}{{.Icon}}'
+    template = ' {{ if .WSL }} {{ end }}{{.Icon}} '
     foreground = '#666666'
-    background = '#222222'
+    # background = '#222222'
     type = 'os'
     style = 'plain'
 
   [[blocks.segments]]
     template = ' {{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }} '
     foreground = '#666666'
-    background = '#222222'
+    # background = '#222222'
     type = 'session'
     style = 'plain'
 
@@ -58,10 +46,11 @@ version = 3
 
     [blocks.segments.properties]
       folder_icon = '…'
-      style = 'mixed'
+      home_icon = '~'
+      style = 'agnoster_full'
 
   [[blocks.segments]]
-    template = ' {{ .HEAD }} '
+    template = ' {{ .HEAD }}'
     foreground = '#f1f0e9'
     background = '#cf432B'
     type = 'git'
@@ -78,6 +67,56 @@ version = 3
       rebase_icon = ' '
       revert_icon = ' '
       tag_icon = ' '
+
+  [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    template = '<b> </b>'
+    background = '#cf432B'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]]
+    template = '{{ if gt .Code 0 }} Exit code {{ .Code }} {{ end }}'
+    foreground = '#ff8888'
+    background = '#880000'
+    type = 'status'
+    style = 'plain'
+
+  [[blocks.segments]]
+    template = ' {{ .FormattedMs }} '
+    foreground = '#222222'
+    background = '#007ACC'
+    type = 'executiontime'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      style = 'austin'
+      threshold = 20.0
+
+  [[blocks.segments]]
+    template = ' {{ .CurrentDate | date .Format }} '
+    foreground = '#007ACC'
+    background = '#222222'
+    type = 'time'
+    style = 'plain'
+
+      [blocks.segments.properties]
+        time_format = '15:04:05'
+
+  [[blocks.segments]]
+    template = '  {{ if .PackageManagerIcon }} {{ .PackageManagerIcon }} {{ end }}{{ .Full }} '
+    foreground = '#0dbc79'
+    background = '#111111'
+    type = 'node'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      fetch_package_manager = true
+      npm_icon = ' '
+      yarn_icon = ' '
 
   [[blocks.segments]]
     template = '  '
@@ -125,18 +164,7 @@ version = 3
   newline = true
 
   [[blocks.segments]]
-    template = '{{ .Name }} '
+    template = ' '
     foreground = '#007ACC'
-    type = 'shell'
+    type = 'text'
     style = 'plain'
-
-    [blocks.segments.properties]
-      [blocks.segments.properties.mapped_shell_names]
-        bash = '$'
-        cmd = '>'
-        fish = '~>'
-        lua = '>'
-        nu = ':)'
-        pwsh = '❯'
-        shell = '❯'
-        zsh = '%'
