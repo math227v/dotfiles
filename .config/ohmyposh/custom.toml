@@ -19,20 +19,20 @@ version = 3
 
   [[blocks.segments]]
     template = ' {{ if .SSHSession }}SSH{{ end }} '
-    foreground = '#dddddd'
-    background = '#d0233e'
+    foreground = '#111111'
+    background = '#23d06e'
     type = 'session'
     style = 'diamond'
-    leading_diamond = '<transparent,#d0233e></>'
+    leading_diamond = '<transparent,#23d06e></>'
     trailing_diamond = ''
 
   [[blocks.segments]]
     template = ' {{ if .WSL }}WSL{{ end }} '
-    foreground = '#dddddd'
-    background = '#d0233e'
+    foreground = '#111111'
+    background = '#d06e23'
     type = 'os'
     style = 'diamond'
-    leading_diamond = '<transparent,#d0233e></>'
+    leading_diamond = '<transparent,#d06e23></>'
     trailing_diamond = ''
 
   [[blocks.segments]]
@@ -98,7 +98,7 @@ version = 3
 
   [[blocks.segments]]
     template = ' {{ .FormattedMs }} '
-    foreground = '#111111'
+    foreground = '#dddddd'
     background = '#005b99'
     type = 'executiontime'
     style = 'diamond'
@@ -116,6 +116,7 @@ version = 3
     type = 'time'
     style = 'diamond'
     leading_diamond = ''
+    trailing_diamond = '<transparent,#333333></>'
 
     [blocks.segments.properties]
       time_format = '15:04:05'
