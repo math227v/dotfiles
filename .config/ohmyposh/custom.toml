@@ -83,6 +83,18 @@ version = 3
     type = 'node'
     style = 'accordion'
 
+  [[blocks.segments]]
+    template = ' {{ .Path }} '
+    foreground = '#666666'
+    background = '#transparent'
+    type = 'path'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      folder_icon = '…'
+      home_icon = '~'
+      style = 'agnoster_full'
+
 [[blocks]]
   type = 'prompt'
   alignment = 'right'
@@ -125,18 +137,6 @@ version = 3
   type = 'prompt'
   alignment = 'left'
   newline = true
-
-  [[blocks.segments]]
-    template = ' {{ .Path }} '
-    foreground = '#dddddd'
-    background = '#transparent'
-    type = 'path'
-    style = 'plain'
-
-    [blocks.segments.properties]
-      folder_icon = '…'
-      home_icon = '~'
-      style = 'agnoster_full'
 
   [[blocks.segments]]
     template = '❯'
