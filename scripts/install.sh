@@ -13,6 +13,7 @@ sudo mv nvim-linux-x86_64.appimage /usr/local/bin/nvim
 
 # Install TPM (Tmux Plugin Manager)
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+~/.tmux/plugins/tpm/scripts/install_plugins.sh
 
 # Install Oh My Posh
 curl -s https://ohmyposh.dev/install.sh | bash -s
