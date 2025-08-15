@@ -19,45 +19,45 @@ version = 3
 
   [[blocks.segments]]
     template = ' {{ if .SSHSession }}SSH{{ end }} '
-    foreground = '#111111'
-    background = '#23d06e'
+    foreground = '#f5e0dc'
+    background = '#496347'
     type = 'session'
     style = 'diamond'
-    leading_diamond = '<transparent,#23d06e></>'
+    leading_diamond = '<transparent,#496347></>'
     trailing_diamond = ''
 
   [[blocks.segments]]
     template = ' {{ if .WSL }}WSL{{ end }} '
     foreground = '#111111'
-    background = '#d06e23'
+    background = '#94e2d5'
     type = 'os'
     style = 'diamond'
-    leading_diamond = '<transparent,#d06e23></>'
+    leading_diamond = '<transparent,#94e2d5></>'
     trailing_diamond = ''
 
   [[blocks.segments]]
     template = ' {{.Icon}}  '
-    foreground = '#dddddd'
-    background = '#333333'
+    foreground = '#f5e0dc'
+    background = '#45475a'
     type = 'os'
     style = 'diamond'
-    leading_diamond = '<transparent,#333333></>'
+    leading_diamond = '<transparent,#45475a></>'
     trailing_diamond = ''
 
   [[blocks.segments]]
     template = ' {{ .UserName }}@{{ .HostName }} '
-    foreground = '#dddddd'
-    background = '#333333'
+    foreground = '#f5e0dc'
+    background = '#45475a'
     type = 'session'
     style = 'diamond'
-    leading_diamond = '<transparent,#333333></>'
+    leading_diamond = '<transparent,#45475a></>'
     trailing_diamond = ''
 
   [[blocks.segments]]
     powerline_symbol = ''
     template = ' {{ .UpstreamIcon }}  {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
-    foreground = '#dddddd'
-    background = '#d0233e'
+    foreground = '#f5e0dc'
+    background = '#b32d52'
     type = 'git'
     style = 'accordion'
 
@@ -78,14 +78,14 @@ version = 3
  [[blocks.segments]]
     powerline_symbol = ''
     template = '  {{ if .PackageManagerIcon }} {{ .PackageManagerIcon }} {{ end }}{{ .Full }} '
-    foreground = '#111111'
-    background = '#a7cc4b'
+    foreground = '#f5e0dc'
+    background = '#496347'
     type = 'node'
     style = 'accordion'
 
   [[blocks.segments]]
     template = ' {{ .Path }} '
-    foreground = '#666666'
+    foreground = '#585b70'
     background = '#transparent'
     type = 'path'
     style = 'plain'
@@ -110,7 +110,7 @@ version = 3
 
   [[blocks.segments]]
     template = ' {{ .FormattedMs }} '
-    foreground = '#dddddd'
+    foreground = '#f5e0dc'
     background = '#005b99'
     type = 'executiontime'
     style = 'diamond'
@@ -123,12 +123,12 @@ version = 3
 
   [[blocks.segments]]
     template = '  {{ .CurrentDate | date .Format }} '
-    foreground = '#dddddd'
-    background = '#333333'
+    foreground = '#f5e0dc'
+    background = '#45475a'
     type = 'time'
     style = 'diamond'
     leading_diamond = ''
-    trailing_diamond = '<transparent,#333333></>'
+    trailing_diamond = '<transparent,#45475a></>'
 
     [blocks.segments.properties]
       time_format = '15:04:05'
@@ -151,7 +151,7 @@ version = 3
 
   [[blocks.segments]]
     template = '<b> </b>'
-    foreground = '#dddddd'
+    foreground = '#f5e0dc'
     background = '#transparent'
     type = 'text'
     style = 'plain'
