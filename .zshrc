@@ -56,6 +56,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath' # Use FZF men
 
 # Aliases
 alias ls='ls --color' 
+alias vim=nvim
 
 # Init FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
