@@ -31,7 +31,8 @@ autoload -U compinit && compinit
 zinit cdreplay -q
 
 # Configure emacs style keybinds
-bindkey -e
+bindkey -v
+export KEYTIMEOUT=1
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey "^[[1;5D" backward-word # For Ctrl + Venstrepil (backward word)
