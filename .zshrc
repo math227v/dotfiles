@@ -61,9 +61,20 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath' # Use FZF men
 # Aliases
 alias ls='ls --color' 
 alias vim=nvim
+alias cat="batcat"
+alias bat="batcat"
 
 # Init FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_CTRL_T_OPTS="--preview 'batcat --color=always --line-range :500 {}'"
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    *)            fzf --preview 'batcat -n --color=always --line-range :500 {}' "$@" ;;
+  esac
+}
 
 # Export NVM to path
 export NVM_DIR="$HOME/.nvm"
