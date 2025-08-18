@@ -60,7 +60,7 @@ zstyle ':completion:*' menu no # Drop build-in menu
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath' # Use FZF menu instead
 
 # Aliases
-alias ls='ls --color' 
+alias ls='eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions' 
 alias vim=nvim
 alias cat="batcat"
 alias bat="batcat"
@@ -73,6 +73,9 @@ _fzf_comprun() {
   shift
 
   case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo \$' {}" "$@" ;;
+    ssh)          fzf --preview 'dig {}' ;;
     *)            fzf --preview 'batcat -n --color=always --line-range :500 {}' "$@" ;;
   esac
 }
