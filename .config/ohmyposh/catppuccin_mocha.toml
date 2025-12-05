@@ -26,13 +26,31 @@ final_space = true
   newline = true
 
   [[blocks.segments]]
+    template = ' {{ if .SSHSession }}SSH{{ end }} '
+    foreground = '#1f1e2e'
+    background = 'p:pink'
+    type = 'session'
+    style = 'diamond'
+    leading_diamond = ''
+    trailing_diamond = ' '
+
+  [[blocks.segments]]
+    template = ' {{ if .WSL }}WSL{{ end }} '
+    foreground = '#1f1e2e'
+    background = 'p:pink'
+    type = 'os'
+    style = 'diamond'
+    leading_diamond = ''
+    trailing_diamond = ' '
+
+  [[blocks.segments]]
     template = '{{.Icon}} '
     foreground = 'p:os'
     type = 'os'
     style = 'plain'
 
   [[blocks.segments]]
-    template = '{{ .UserName }}@{{ .HostName }} '
+    template = ' {{ .UserName }}@{{ .HostName }} '
     foreground = 'p:blue'
     type = 'session'
     style = 'plain'
