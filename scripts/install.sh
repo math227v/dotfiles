@@ -68,9 +68,9 @@ system_part() {
     if [[ "$(getent passwd "$TARGET_USER" | cut -d: -f7)" != "/bin/zsh" ]]; then
       log "Sætter standard shell til zsh for ${TARGET_USER} ..."
       if is_root; then
-        chsh -s /bin/zsh "$TARGET_USER"
+        usermod -s /bin/zsh "$TARGET_USER"
       else
-        $SUDO chsh -s /bin/zsh "$TARGET_USER"
+        $SUDO usermod -s /bin/zsh "$TARGET_USER"
       fi
     fi
   fi
