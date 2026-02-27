@@ -131,14 +131,14 @@ system_part() {
   $SUDO install -m 0755 "$tmp" "$NEOVIM_DEST"
   rm -f "$tmp"
 
+  $SUDO chmod -x /etc/update-motd.d/*
+  $SUDO chmod +x /etc/update-motd.d/98-reboot-required
+
   # Custom MOTD
   log "Sætter custom MOTD (/etc/update-motd.d/01-custom)..."
   $SUDO tee /etc/update-motd.d/01-custom > /dev/null <<'EOF'
 #!/bin/sh
 export TERM=xterm; clear
-echo
-echo
-/usr/bin/fastfetch
 EOF
   $SUDO chmod +x /etc/update-motd.d/01-custom
 

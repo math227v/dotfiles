@@ -99,3 +99,9 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+echo
+echo
+/usr/bin/fastfetch
+echo
+echo
