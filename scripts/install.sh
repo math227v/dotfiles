@@ -5,7 +5,7 @@ set -euo pipefail
 # -----------------------------
 # Konfiguration
 # -----------------------------
-APT_PKGS=(git curl stow neofetch zsh unzip tmux bat eza ca-certificates openssh-client)
+APT_PKGS=(git curl stow fastfetch zsh unzip tmux bat eza ca-certificates openssh-client)
 NEOVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage"
 NEOVIM_DEST="/usr/local/bin/nvim"
 
@@ -117,6 +117,9 @@ system_part() {
     return 0
   fi
 
+  log "APT: tilføjer fastfetch PPA..."
+  $SUDO add-apt-repository ppa:zhangsongcui3371/fastfetch -y
+
   log "APT: opdaterer og installerer basispakker..."
   $SUDO apt update
   $SUDO apt install -y "${APT_PKGS[@]}"
@@ -135,7 +138,7 @@ system_part() {
 export TERM=xterm; clear
 echo
 echo
-/usr/bin/neofetch
+/usr/bin/fastfetch
 EOF
   $SUDO chmod +x /etc/update-motd.d/01-custom
 

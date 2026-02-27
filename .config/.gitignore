@@ -3,8 +3,8 @@
 !.gitignore
 !git/
 !git/ignore
-!neofetch/
-!neofetch/**
+!fastfetch/
+!fastfetch/**
 !nvim/
 !nvim/**
 !ohmyposh/
