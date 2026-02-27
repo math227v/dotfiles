@@ -1,0 +1,14 @@
+# Ignore everything by default — only manually added items belong in this repo.
+*
+!.gitignore
+!git/
+!git/ignore
+!neofetch/
+!neofetch/**
+!nvim/
+!nvim/**
+!ohmyposh/
+!ohmyposh/**
+!tmux/
+!tmux/tmux.conf
+!starship.toml

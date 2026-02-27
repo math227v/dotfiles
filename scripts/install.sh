@@ -10,12 +10,14 @@ NEOVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux
 NEOVIM_DEST="/usr/local/bin/nvim"
 
 # -----------------------------
-# Flag parsing: --system / --user
+# Flag parsing: --system / --user / --fix-stow
 # -----------------------------
 DO_SYSTEM=1
 DO_USER=1
-if [[ "${1:-}" == "--system" ]]; then DO_USER=0; fi
-if [[ "${1:-}" == "--user"   ]]; then DO_SYSTEM=0; fi
+DO_FIX_STOW=0
+if [[ "${1:-}" == "--system"   ]]; then DO_USER=0; fi
+if [[ "${1:-}" == "--user"     ]]; then DO_SYSTEM=0; fi
+if [[ "${1:-}" == "--fix-stow" ]]; then DO_SYSTEM=0; DO_USER=0; DO_FIX_STOW=1; fi
 
 # -----------------------------
 # Hjælpere
@@ -42,6 +44,69 @@ ensure_dir() {
 }
 
 log() { printf "\033[1;34m==>\033[0m %s\n" "$*"; }
+
+# -----------------------------
+# Fix stow-folded ~/.config
+# -----------------------------
+fix_folded_config() {
+  local config_link="${HOME}/.config"
+  # Only act if ~/.config is a symlink (stow fold)
+  if [[ ! -L "$config_link" ]]; then
+    return 0
+  fi
+
+  local link_target
+  link_target="$(readlink "$config_link")"
+  # Resolve to absolute path for safety checks
+  local abs_target
+  abs_target="$(cd "$(dirname "$config_link")" && realpath "$link_target" 2>/dev/null || echo "")"
+
+  log "Fundet stow-fold: ${config_link} -> ${link_target} — reparerer..."
+
+  # Unlink the folded symlink
+  unlink "$config_link"
+
+  # Create a real ~/.config directory
+  mkdir -p "$config_link"
+  chmod 755 "$config_link"
+
+  # Move untracked items (system configs) out of the repo into real ~/.config
+  REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+  if [[ -d "${REPO_ROOT}/.config" ]]; then
+    for item in "${REPO_ROOT}/.config"/*/; do
+      item="${item%/}"
+      name="$(basename "$item")"
+      # Skip if tracked by git (stow will link it)
+      if git -C "$REPO_ROOT" ls-files --error-unmatch ".config/${name}" ".config/${name}/" >/dev/null 2>&1; then
+        log "  Beholder i repo (tracked): .config/${name}"
+        continue
+      fi
+      # Move untracked item to real ~/.config
+      log "  Flytter system-config til ~/.config/: ${name}"
+      mv "$item" "${config_link}/${name}"
+    done
+  fi
+
+  log "Stow-fold rettet. ~/.config er nu en rigtig mappe."
+}
+
+# -----------------------------
+# Fix-stow only (--fix-stow flag)
+# -----------------------------
+fix_stow_only() {
+  if is_root; then
+    log "Skifter til bruger-kontekst for ${TARGET_USER} ..."
+    exec sudo -u "$TARGET_USER" -H bash "$0" --fix-stow
+  fi
+
+  REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+  fix_folded_config
+  ensure_dir "${HOME}/.config" 755
+  log "Stowing fra ${REPO_ROOT} ..."
+  cd "${REPO_ROOT}"
+  stow .
+  log "Fix-stow færdig."
+}
 
 # -----------------------------
 # System-del (root/sudo)
@@ -119,6 +184,8 @@ user_part() {
   # Stow dotfiles (forvent at scriptet ligger i repoet: ./scripts/install.sh)
   REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
   if [[ -f "${REPO_ROOT}/.stow-local-ignore" || -d "${REPO_ROOT}" ]]; then
+    fix_folded_config
+    ensure_dir "${HOME}/.config" 755
     log "Stowing fra ${REPO_ROOT} ..."
     cd "${REPO_ROOT}"
     stow .
@@ -132,6 +199,7 @@ user_part() {
 # -----------------------------
 # Main
 # -----------------------------
+if [[ "$DO_FIX_STOW" -eq 1 ]]; then fix_stow_only; log "Alt færdigt."; exit 0; fi
 if [[ "$DO_SYSTEM" -eq 1 ]]; then system_part; fi
 if [[ "$DO_USER"   -eq 1 ]]; then user_part; fi
 
