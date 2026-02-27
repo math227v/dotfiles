@@ -5,7 +5,7 @@ set -euo pipefail
 # -----------------------------
 # Konfiguration
 # -----------------------------
-APT_PKGS=(git curl stow fastfetch zsh unzip tmux bat eza ca-certificates openssh-client)
+APT_PKGS=(git curl stow zsh unzip tmux bat eza ca-certificates openssh-client)
 NEOVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage"
 NEOVIM_DEST="/usr/local/bin/nvim"
 
@@ -22,8 +22,17 @@ if [[ "${1:-}" == "--fix-stow" ]]; then DO_SYSTEM=0; DO_USER=0; DO_FIX_STOW=1; f
 # -----------------------------
 # Hjælpere
 # -----------------------------
-have_cmd() { command -v "$1" >/dev/null 2>&1; }
-is_root()  { [[ "$(id -u)" -eq 0 ]]; }
+have_cmd()     { command -v "$1" >/dev/null 2>&1; }
+is_root()      { [[ "$(id -u)" -eq 0 ]]; }
+get_distro_id() {
+  if [[ -f /etc/os-release ]]; then
+    # shellcheck source=/dev/null
+    . /etc/os-release
+    echo "${ID:-unknown}"
+  else
+    echo "unknown"
+  fi
+}
 # Brug sudo hvis muligt, ellers tom (og så fejler system-ting pænt)
 SUDO=""
 if ! is_root; then
@@ -117,12 +126,30 @@ system_part() {
     return 0
   fi
 
-  log "APT: tilføjer fastfetch PPA..."
-  $SUDO add-apt-repository ppa:zhangsongcui3371/fastfetch -y
+  local distro
+  distro="$(get_distro_id)"
+
+  if [[ "$distro" == "ubuntu" ]]; then
+    log "APT: tilføjer fastfetch PPA (Ubuntu)..."
+    $SUDO add-apt-repository ppa:zhangsongcui3371/fastfetch -y
+  fi
 
   log "APT: opdaterer og installerer basispakker..."
   $SUDO apt update
   $SUDO apt install -y "${APT_PKGS[@]}"
+
+  # Fastfetch: PPA on Ubuntu already added it; on Debian fetch the .deb from GitHub
+  if [[ "$distro" == "ubuntu" ]]; then
+    $SUDO apt install -y fastfetch
+  else
+    log "Installerer fastfetch fra GitHub releases (${distro})..."
+    local tmp_deb
+    tmp_deb="$(mktemp --suffix=.deb)"
+    curl -fsSL "https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-amd64.deb" \
+      -o "$tmp_deb"
+    $SUDO dpkg -i "$tmp_deb"
+    rm -f "$tmp_deb"
+  fi
 
   # Neovim AppImage til /usr/local/bin/nvim
   log "Installerer Neovim AppImage til ${NEOVIM_DEST} ..."
