@@ -158,16 +158,19 @@ system_part() {
   $SUDO install -m 0755 "$tmp" "$NEOVIM_DEST"
   rm -f "$tmp"
 
-  $SUDO chmod -x /etc/update-motd.d/*
-  $SUDO chmod +x /etc/update-motd.d/98-reboot-required
-
   # Custom MOTD
-  log "Sætter custom MOTD (/etc/update-motd.d/01-custom)..."
-  $SUDO tee /etc/update-motd.d/01-custom > /dev/null <<'EOF'
+  if [[ -d /etc/update-motd.d ]]; then
+    log "Sætter custom MOTD (/etc/update-motd.d/01-custom)..."
+    $SUDO chmod -x /etc/update-motd.d/*
+    if [[ -f /etc/update-motd.d/98-reboot-required ]]; then
+      $SUDO chmod +x /etc/update-motd.d/98-reboot-required
+    fi
+    $SUDO tee /etc/update-motd.d/01-custom > /dev/null <<'EOF'
 #!/bin/sh
 export TERM=xterm; clear
 EOF
-  $SUDO chmod +x /etc/update-motd.d/01-custom
+    $SUDO chmod +x /etc/update-motd.d/01-custom
+  fi
 
   # Standard shell -> zsh for TARGET_USER
   if have_cmd zsh; then
