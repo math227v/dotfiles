@@ -80,6 +80,9 @@ _fzf_comprun() {
   esac
 }
 
+# Environment Variables
+export EDITOR="nvim"
+
 # Export NVM to path
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
